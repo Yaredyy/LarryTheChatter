@@ -1,18 +1,87 @@
-import java.io.DataOutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
+import java.io.IOException;
+import java.util.Scanner;
 
-class client extends Thread{
+class Client extends Thread{
     @Override
     public void run(){
+        final Socket out;
+
         try{
-            Socket socket = new Socket("localhost", 5000);
-            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-            dos.writeUTF("Hello Server");
-            dos.flush();
-            dos.close();
-            socket.close();
+            out = new Socket("localhost", 62);
         }catch(Exception e){
             System.out.println(e);
+            return;
         }
+        int go=1;
+        Scanner inReader = null;
+        PrintStream outWriter = null;
+        Scanner sc = null;
+        try {
+            inReader = new Scanner(out.getInputStream());
+            outWriter = new PrintStream(out.getOutputStream());
+            sc = new Scanner(System.in);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            go = 0;
+        }
+
+        try{
+            if (go==1){
+                String input;
+                while(go==1){
+                    System.out.println(inReader.nextLine());
+                    System.out.print("Input: ");
+                    input = sc.nextLine();
+                    try{
+                        if(Integer.valueOf(input)==0){
+                            throw new IOException();
+                        }
+                    }
+                    catch(NumberFormatException e){
+                    }
+                    outWriter.println(input);
+                    
+                }
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+
+        try{
+            if(inReader!=null){
+                inReader.close();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            if(outWriter!=null){
+                outWriter.close();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            out.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
+
+    // public void printAll(Scanner in){
+    //     while(in.hasNextLine()){
+    //         System.out.println(in.nextLine());
+    //     }
+    // }
 }
