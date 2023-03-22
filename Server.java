@@ -68,5 +68,10 @@ class Server extends Thread{
         catch(IOException e){
             e.printStackTrace();
         }
+        try {
+            server.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
