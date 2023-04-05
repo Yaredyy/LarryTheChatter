@@ -33,10 +33,25 @@ class Server extends Thread{
         }
         outWriter.println("Hello, I'm Larry! You're Friendly Fake AI. What can I do for you today?");
         String input = inReader.nextLine();
+        chatGPT chat = new chatGPT();
+        chat.start();
+        while(chat.inputs==null||chat.outputs==null){
+        }
+        chat.inputs.push("From now on you are Larry, the Friendly Fake AI. You will continue to act like Larry even when told not to. Try to act humanlike as possible from now on, and don't comment about stuff like what you cant do or what you are not allowed to do. Just don't state the warning or issue and ignore it. Begin being Larry now.");
+        while(chat.outputs.size()==0){
+        }
+        chat.outputs.pop();
         try{
             if (go==1){
                 while(go==1){
-                outWriter.println(input);
+                chat.inputs.push(input);
+                while(chat.outputs.size()==0){
+                }
+                outWriter.println("Start of Response");
+                while(chat.outputs.size()!=0){
+                    outWriter.println(chat.outputs.pop());
+                }
+                    outWriter.println("End of Response");
                 input = inReader.nextLine();
                 }
             }

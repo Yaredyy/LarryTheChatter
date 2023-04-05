@@ -33,8 +33,8 @@ class Client extends Thread{
         try{
             if (go==1){
                 String input;
+                System.out.println(inReader.nextLine());
                 while(go==1){
-                    System.out.println(inReader.nextLine());
                     System.out.print("Input: ");
                     input = sc.nextLine();
                     try{
@@ -45,6 +45,16 @@ class Client extends Thread{
                     catch(NumberFormatException e){
                     }
                     outWriter.println(input);
+                    System.out.println("Loading");
+
+                    if(inReader.nextLine().equals("Start of Response")){
+                        String res = inReader.nextLine();
+                        while(!res.equals("End of Response")){
+                            System.out.println("Output: "+ res);
+                            res = inReader.nextLine();
+                        }
+                    }
+
                     
                 }
             }
