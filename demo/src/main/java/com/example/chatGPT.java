@@ -70,7 +70,7 @@ class chatGPT extends Thread{
                 return bark;
                 }
                 else{
-                    return"Error";
+                    return"?!?!?!Error, how tf did you get here, you should never get here";
                 }
             }
         return "!!Error!!";
