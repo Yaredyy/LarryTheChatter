@@ -6,7 +6,6 @@ public class Tester {
         Server server = new Server();
         Client client = new Client();
         server.start();
-        client.start();
-
+        client.start(); 
     }
 }

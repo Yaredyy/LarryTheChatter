@@ -16,7 +16,6 @@ import com.github.cliftonlabs.json_simple.Jsoner;
 
 
 
-
 class chatGPT extends Thread{
     Stack<String> inputs;
     Stack<String> outputs;
